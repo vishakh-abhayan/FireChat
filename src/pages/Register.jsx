@@ -10,7 +10,11 @@ function Register() {
         <form action="">
           <input type="text" placeholder="display name" />
           <input type="email" placeholder="email" />
-          <input type="password" placeholder="password" />
+          <input
+            type="password"
+            placeholder="password"
+            autoComplete="new-password"
+          />
           <input style={{ display: "none" }} type="file" id="file" />
           <label htmlFor="file">
             <FcAddImage size={32} />
