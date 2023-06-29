@@ -1,6 +1,3 @@
-import React from "react";
-import { FcAddImage } from "react-icons/fc";
-
 function Login() {
   return (
     <div className="formContainer">
