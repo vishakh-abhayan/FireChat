@@ -1,7 +1,9 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, db, storage } from "../firebase";
 import { FcAddImage } from "react-icons/fc";
 import { useState } from "react";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { doc, setDoc } from "firebase/firestore";
 
 function Register() {
   const [err, setErr] = useState(false);
@@ -15,6 +17,32 @@ function Register() {
 
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
+
+      const storageRef = ref(storage, displayName);
+
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        (error) => {
+          // Handle unsuccessful uploads
+          setErr(true);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            await updateProfile(res.user, {
+              displayName,
+              photoURL: downloadURL,
+            });
+            await setDoc(doc(db, "users", res.user.uid), {
+              uid: res.user.uid,
+              displayName,
+              email,
+              photoURL: downloadURL,
+            });
+            await setDoc(doc(db, "userChats", res.user.uid), {});
+          });
+        }
+      );
     } catch (err) {
       setErr(true);
     }
@@ -46,5 +74,4 @@ function Register() {
     </div>
   );
 }
-
 export default Register;
