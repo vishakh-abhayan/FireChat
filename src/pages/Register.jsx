@@ -4,7 +4,7 @@ import { FcAddImage } from "react-icons/fc";
 import { useState } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Register() {
   const [err, setErr] = useState(false);
@@ -73,7 +73,9 @@ function Register() {
           <button>Sign up</button>
           {err && <span className="warn">Somethig went worng....</span>}
         </form>
-        <p>you do have an account? Login</p>
+        <p>
+          you do have an account? <Link to="/login"> Login</Link>
+        </p>
       </div>
     </div>
   );
