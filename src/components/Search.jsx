@@ -9,7 +9,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../firebase";
-import AuthContext from "../context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 
 function Search() {
   const [userName, setUserName] = useState("");
@@ -23,7 +23,7 @@ function Search() {
       where("displayName", "==", userName)
     );
     try {
-      const querySnapshot = await getDocs(q);
+      const querySnapshot = await getDoc(q);
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
         setUser(doc.data());
@@ -71,6 +71,8 @@ function Search() {
     } catch (err) {
       console.log(err);
     }
+    setUser(null);
+    setUserName("");
   };
 
   return (
@@ -81,6 +83,7 @@ function Search() {
           placeholder="find a user"
           onKeyDown={handleKey}
           onChange={(e) => setUserName(e.target.value)}
+          value={userName}
         />
       </div>
       {err && <span>User not-found</span>}
