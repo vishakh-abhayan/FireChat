@@ -16,6 +16,7 @@ export const AuthContextProvider = ({ children }) => {
       unsub();
     };
   }, []);
+
   return (
     <AuthContext.Provider value={{ currentUser }}>
       {children}
