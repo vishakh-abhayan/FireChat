@@ -28,12 +28,8 @@ function Login() {
         <span className="logo">Vchat</span>
         <span className="title">Login </span>
         <form onSubmit={handleSubmit} action="">
-          <input type="email" placeholder="email" autoComplete="off" />
-          <input
-            type="password"
-            placeholder="password"
-            autoComplete="new-password"
-          />
+          <input type="email" placeholder="email" />
+          <input type="password" placeholder="password" />
           <button>Sign in</button>
           {err && <span className="warn">Somethig went worng....</span>}
         </form>

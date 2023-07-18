@@ -2,11 +2,13 @@ import React, { useContext, useState } from "react";
 import {
   collection,
   getDoc,
+  getDocs,
   query,
   serverTimestamp,
   setDoc,
   updateDoc,
   where,
+  doc,
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
@@ -23,17 +25,18 @@ function Search() {
       where("displayName", "==", userName)
     );
     try {
-      const querySnapshot = await getDoc(q);
+      const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
         setUser(doc.data());
         console.log(doc.id, " => ", doc.data());
       });
     } catch (err) {
+      console.log(err);
       setErr(true);
     }
-    setUser(null);
-    setUserName("");
+    // setUser(null);
+    // setUserName("");
   };
 
   const handleKey = (e) => {
