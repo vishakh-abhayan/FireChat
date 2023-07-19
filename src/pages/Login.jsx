@@ -25,7 +25,7 @@ function Login() {
   return (
     <div className="formContainer">
       <div className="formWrapper">
-        <span className="logo">Vchat</span>
+        <span className="logo">FireChat</span>
         <span className="title">Login </span>
         <form onSubmit={handleSubmit} action="">
           <input type="email" placeholder="email" />
